@@ -20,6 +20,12 @@ body {
     font-family: var(--fm-main), sans-serif;
 }
 
+body.light-mode {
+    --bg-main: hsl(0, 0%, 98%);
+    --bg-secondary: hsl(0, 0%, 100%);  
+    --text-main: hsl(200, 15%, 8%);
+}
+
 /* Header - Dark mode toggle*/
 
 header {
@@ -40,6 +46,7 @@ header h1 {
     display: flex;
     align-items: center;
     gap: .688rem;
+    cursor: pointer;
 }
 
 .theme-cont img {
