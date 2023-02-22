@@ -11,7 +11,7 @@
     <script src="data.json"></script>
     <script src="js/script.js" defer></script>
   </head>
-  <body>
+  <body class="light-mode">
     <header>
       <h1>Where in the world?</h1>
       <div id="theme-switch" class="theme-cont">
@@ -24,5 +24,27 @@
         <p id="theme-switch-name">Dark Mode</p>
       </div>
     </header>
+
+    <main>
+      <div class="search-container">
+        <div class="search-bar">
+          <img
+            id="search-icon"
+            class="search-icon"
+            src="images/search-icon-light.svg"
+            alt="search icon"
+          />
+          <input type="text" placeholder="Search for a country..." />
+        </div>
+
+        <div class="filter-by">
+          <label class="filter-options-name" for="filter-options">Filter options</label>
+          <select name="filter-options" id="filter-options" class="filter-options">
+            <option value=""></option>
+            <option value="">3</option>
+          </select>
+        </div>
+      </div>
+    </main>
   </body>
 </html>
