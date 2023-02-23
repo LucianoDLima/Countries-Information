@@ -9,8 +9,6 @@ async function teste(country) {
 
 // Elements
 const themeSwitchBtn = document.querySelector('#theme-switch');
-const themeSwitchImg = document.querySelector('#theme-switch-img');
-const themeSwitchSearch = document.querySelector('#search-icon')
 
 // Functions
 
@@ -20,8 +18,8 @@ const themeSwitchSearch = document.querySelector('#search-icon')
 let isLightMode = document.body.classList.contains('light-mode') ? true : false;
 
 function swapThemeToggle() {
-    if(isLightMode) isLightMode = false
-    else isLightMode = true
+  if (isLightMode) isLightMode = false;
+  else isLightMode = true;
 }
 
 function swapThemeName() {
@@ -35,17 +33,25 @@ function swapThemeName() {
 }
 
 function swapThemeImage() {
+  const themeSwitchImg = document.querySelector('#theme-switch-img');
+  const themeSwitchSearch = document.querySelector('#search-icon');
+  const themeSwitchArrow = document.querySelector('#arrow-icon')
+
   const darkMode = 'images/dark-mode.svg';
   const lightMode = 'images/light-mode.svg';
   const darkModeSearch = 'images/search-icon-dark.svg';
   const lightModeSearch = 'images/search-icon-light.svg';
+  const darkModeArrow = 'images/arrow-dark.svg';
+  const lightModeArrow = 'images/arrow-light.svg';
 
   if (isLightMode) {
     themeSwitchImg.setAttribute('src', darkMode);
-    themeSwitchSearch.setAttribute('src', darkModeSearch)
-} else {
+    themeSwitchSearch.setAttribute('src', darkModeSearch);
+    themeSwitchArrow.setAttribute('src', darkModeArrow)
+  } else {
     themeSwitchImg.setAttribute('src', lightMode);
-    themeSwitchSearch.setAttribute('src', lightModeSearch)
+    themeSwitchSearch.setAttribute('src', lightModeSearch);
+    themeSwitchArrow.setAttribute('src', lightModeArrow)
   }
 }
 
@@ -55,18 +61,22 @@ function swapThemeColors() {
 
 function swapThemeActivation(all) {
   if (all === true) {
-      swapThemeToggle()
-      swapThemeName();
-      swapThemeImage();
-      swapThemeColors();
+    swapThemeToggle();
+    swapThemeName();
+    swapThemeImage();
+    swapThemeColors();
   } else {
-      swapThemeToggle()
-      swapThemeName();
-      swapThemeImage();
+    swapThemeToggle();
+    swapThemeName();
+    swapThemeImage();
   }
 }
 
 swapThemeActivation();
+
+// Filter styles
+
+// function
 
 // Events
 themeSwitchBtn.addEventListener('click', () => {
