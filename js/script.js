@@ -9,6 +9,7 @@ async function teste(country) {
 
 // Elements
 const themeSwitchBtn = document.querySelector('#theme-switch');
+const select = document.querySelector('#filter-options');
 
 // Functions
 
@@ -74,11 +75,17 @@ function swapThemeActivation(all) {
 
 swapThemeActivation();
 
-// Filter styles
+/* //
+EVENTS
+// */
 
-// function
-
-// Events
+// Dark and light mode button
 themeSwitchBtn.addEventListener('click', () => {
   swapThemeActivation(true);
+});
+
+// Drop down filter options, makes the 'filter option' dissappear after an option is selected
+select.addEventListener('change', () => {
+  const filterName = document.querySelector('#filter-options-name')
+  filterName.textContent = ''
 });
