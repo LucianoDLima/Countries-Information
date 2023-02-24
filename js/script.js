@@ -7,11 +7,15 @@ async function teste(country) {
 
 // teste('brazil');
 
-// Elements
+/* //
+ELEMENTS
+// */
 const themeSwitchBtn = document.querySelector('#theme-switch');
 const select = document.querySelector('#filter-options');
 
-// Functions
+/* //
+FUNCTIONS
+// */
 
 /* ==========
  The SWAP functions are related to the light and dark theme 
@@ -73,13 +77,14 @@ function swapThemeActivation(all) {
   }
 }
 
-swapThemeActivation();
 
 /* //
 EVENTS
 // */
 
 // Dark and light mode button
+swapThemeActivation();
+
 themeSwitchBtn.addEventListener('click', () => {
   swapThemeActivation(true);
 });

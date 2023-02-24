@@ -29,7 +29,6 @@ body {
   background-color: var(--bg-main);
   color: var(--text-main);
   font-family: var(--fm-main), sans-serif;
-  /* transition: 100ms; */
 }
 
 body.light-mode {
@@ -86,6 +85,7 @@ main {
 
 .search-bar {
   position: relative;
+  max-width: 30rem;
 }
 
 .search-icon {
@@ -103,12 +103,14 @@ main {
   border: none;
   background-color: var(--bg-secondary);
   font-size: 0.875rem;
-  width: 30rem;
+  width: 100%;
 }
 
 /* Filter */
 .filter-by {
   position: relative;
+  height: 53px;
+  max-width: 12.5rem;
 }
 
 .filter-options-name {
@@ -117,7 +119,6 @@ main {
   top: 0;
   transform: translateX(var(--search-padding)) translateY(var(--search-padding));
   pointer-events: none;
-  height: 100%;
   font-size: 0.875rem;
   font-weight: 600;
   color: var(--text-main);
@@ -147,4 +148,17 @@ main {
 }
 
 
+@media screen and (max-width: 46.875em) {
+  .search-container {
+    flex-direction: column;
+    gap: 2rem;
+  }
 
+  .search-bar {
+  }
+
+  .filter-options-arrow {
+    left: 0;
+    transform: translateY(-50%) translateX(calc(var(--search-padding) * 10));
+  }
+}
