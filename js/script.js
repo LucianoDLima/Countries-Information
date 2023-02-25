@@ -12,6 +12,7 @@ ELEMENTS
 // */
 const themeSwitchBtn = document.querySelector('#theme-switch');
 const select = document.querySelector('#filter-options');
+const countryContainer = document.querySelector('.countries');
 
 /* //
 FUNCTIONS
@@ -77,6 +78,16 @@ function swapThemeActivation(all) {
   }
 }
 
+// ====== \\
+
+function addCountry() {
+  const aCountry = document.createElement('div')
+  aCountry.classList.add('countries__box')
+  countryContainer.append(aCountry)
+
+  
+}
+addCountry()
 
 /* //
 EVENTS
