@@ -1,12 +1,3 @@
-async function teste(country) {
-  // const response = await fetch(`https://restcountries.com/v3.1/name/${country}`)
-  // const data = await response.json()
-  //   console.log(data);
-  // return response
-}
-
-// teste('brazil');
-
 /* //
 ELEMENTS
 // */
@@ -79,40 +70,36 @@ function swapThemeActivation(all) {
 }
 
 // ====== \\
-
-function addCountry() {
-  const countryBox = document.createElement('div')
-  countryBox.classList.add('countries__box')
-  countryContainer.append(countryBox)
-
-  const countryFlag = document.createElement('div')
-  countryFlag.classList.add('countries__flag')
-  countryBox.append(countryFlag);
-
-  const countryFlagImg = document.createElement('img')
-  countryFlagImg.setAttribute('src', 'https://flagcdn.com/br.svg')
-  countryFlag.append(countryFlagImg)
-
-  const countryName = document.createElement('h2')
-  countryName.classList.add('countries__name')
-  countryName.textContent = 'test, delete this line after'
-  countryBox.append(countryName)
-
-  const countryInformationContainer = document.createElement('div')
-  countryInformationContainer.classList.add('countries__information')
-  countryBox.append(countryInformationContainer)
-
-  const countryPopulation = document.createElement('p')
-  countryPopulation.textContent = 'test: '
-  countryInformationContainer.append(countryPopulation)
-
-  const countryPopulationInfo = document.createElement('span')
-  countryPopulation.append(countryPopulationInfo)
-  countryPopulationInfo.textContent = 'teste'
-
-  
+async function teste(country) {
+  // const response = await fetch(`https://restcountries.com/v3.1/name/${country}`)
+  // const data = await response.json()
+  //   console.log(data);
+  // return response
 }
-addCountry()
+async function addCountry(country) {
+  const response = await fetch(`https://restcountries.com/v3.1/name/${country}`)
+  const data = await response.json()
+  console.log(data);
+  countryContainer.insertAdjacentHTML('beforeend', `
+        <div class="countries__box">
+          <div class="countries__flag">
+            <img src="${data[0].flags.svg}" alt="${data[0].flags.alt}">
+          </div>
+          
+          <h2 class="countries__name">${data[0].name.common}</h2>
+
+          <div class="countries__information">
+            <p>Population: <span id="population">${data[0].population}</span></p>
+            <p>Region: <span id="region">${data[0].region}</span></p>
+            <p>Capital: <span id="capital">${data[0].capital}</span></p> 
+          </div>
+        </div>`)
+
+}
+addCountry('Brazil')
+addCountry('Togo')
+addCountry('Japan')
+addCountry('Australia')
 
 /* //
 EVENTS
