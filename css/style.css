@@ -22,7 +22,10 @@ select {
 
   --fm-main: 'Nunito Sans';
 
-  --search-padding: 1.063rem;
+  --search-padding: 1.15rem;
+  --max-width: 1440px;
+  --max-width-padding: 5rem;
+  --min-width-padding: 1.25rem;
 }
 
 body {
@@ -40,40 +43,43 @@ body.light-mode {
 /* Header - Dark mode toggle*/
 
 header {
+  /* position: fixed; */
   background-color: var(--bg-secondary);
   display: flex;
   justify-content: space-between;
   width: 100%;
-  padding: 1.438rem;
+  padding: 1.5rem var(--max-width-padding);
   box-shadow: 0px 3px 5px 0px var(--box-shadow-color);
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 }
 
 header h1 {
   font-weight: 800;
-  font-size: 1.563rem;
+  font-size: 1.5rem;
 }
 
 .theme-cont {
   display: flex;
   align-items: center;
-  gap: 0.688rem;
+  gap: .6rem;
   cursor: pointer;
 }
 
 .theme-cont img {
-  width: 1.1rem;
+  width: 1rem;
 }
 
 .theme-cont p {
-  font-size: 1.125rem;
+  font-size: 1.05rem;
 }
 /* Main container */
 
 main {
   display: flex;
   flex-direction: column;
-  padding-inline: 1.25rem;
+  padding-inline: var(--max-width-padding);
+  max-width: var(--max-width);
+  margin-inline: auto;
 }
 
 /* Search bar and filter options */
@@ -81,6 +87,8 @@ main {
 .search-container {
   display: flex;
   justify-content: space-between;
+  width: 100%;
+  margin-inline: auto;
 }
 
 .search-bar {
@@ -91,7 +99,7 @@ main {
 .search-icon {
   position: absolute;
   transform: translateX(1.875rem) translateY(-50%);
-  top: 30%;
+  top: 27%;
   pointer-events: none;
 }
 
@@ -111,14 +119,14 @@ main {
   position: relative;
   height: 53px;
   max-width: 12.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 }
 
 .filter-options-name {
   position: absolute;
   left: 0;
   top: 0;
-  transform: translateX(var(--search-padding)) translateY(var(--search-padding));
+  transform: translateX(calc(var(--search-padding) + .4rem)) translateY(var(--search-padding));
   pointer-events: none;
   font-size: 0.875rem;
   font-weight: 600;
@@ -148,8 +156,69 @@ main {
   appearance: none;
 }
 
+/* Countries */
+.countries {
+  display: grid;
+  gap: 4.5rem;
+  grid-template-columns: repeat(4, 1fr);
+  width: 100%;
+}
 
-@media screen and (max-width: 46.875em) {
+.countries__box {
+  max-width: 265px;
+  width: 100%;
+  border-radius: .25rem;
+  background-color: var(--bg-secondary);
+  display: flex;
+  flex-direction: column;
+}
+
+.countries__flag {
+  height: 163px;
+  margin-bottom: 1.55rem;
+}
+
+.countries__flag img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  
+  /* height: 159px; */
+  border-radius: .25rem .25rem 0 0;
+}
+
+.countries__name {
+  padding-inline: 1.5rem;
+  font-size: 1.1rem;
+  margin-bottom: 1.1rem;
+}
+
+.countries__information {
+  padding-inline: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+  margin-bottom: 2.813rem;
+}
+
+.countries__information p {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.countries__information span {
+  font-weight: 300;
+  opacity: .5;
+}
+
+
+@media screen and (width <= 46.875em) {
+  header {
+    padding-inline: var(--min-width-padding);
+  }
+  main {
+    padding-inline: var(--min-width-padding);
+  }
   .search-container {
     flex-direction: column;
     gap: 2rem;
@@ -164,58 +233,3 @@ main {
     transform: translateY(-50%) translateX(calc(var(--search-padding) * 10));
   }
 }
-
-/* Countries */
-.countries {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  place-items: center;
-}
-
-.countries__box {
-  max-width: 265px;
-  border-radius: .25rem;
-  background-color: var(--bg-secondary);
-  display: flex;
-  flex-direction: column;
-  gap: 1.688rem; 
-}
-
-.countries__flag {
-  height: 159px;
-}
-
-.countries__flag img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  
-  /* height: 159px; */
-  border-radius: .25rem .25rem 0 0;
-}
-
-.countries__name {
-  padding-inline: 1.5rem;
-}
-
-.countries__information {
-  padding-inline: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 2.813rem;
-}
-
-.countries__information p {
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.countries__information span {
-  font-weight: 300;
-  opacity: .5;
-}
-
-/* TODO
-Media query for 1440px screen, as right now it's not properly fitting 4 countries as in the image provided in design
-*/

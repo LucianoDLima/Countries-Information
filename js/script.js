@@ -81,9 +81,34 @@ function swapThemeActivation(all) {
 // ====== \\
 
 function addCountry() {
-  const aCountry = document.createElement('div')
-  aCountry.classList.add('countries__box')
-  countryContainer.append(aCountry)
+  const countryBox = document.createElement('div')
+  countryBox.classList.add('countries__box')
+  countryContainer.append(countryBox)
+
+  const countryFlag = document.createElement('div')
+  countryFlag.classList.add('countries__flag')
+  countryBox.append(countryFlag);
+
+  const countryFlagImg = document.createElement('img')
+  countryFlagImg.setAttribute('src', 'https://flagcdn.com/br.svg')
+  countryFlag.append(countryFlagImg)
+
+  const countryName = document.createElement('h2')
+  countryName.classList.add('countries__name')
+  countryName.textContent = 'test, delete this line after'
+  countryBox.append(countryName)
+
+  const countryInformationContainer = document.createElement('div')
+  countryInformationContainer.classList.add('countries__information')
+  countryBox.append(countryInformationContainer)
+
+  const countryPopulation = document.createElement('p')
+  countryPopulation.textContent = 'test: '
+  countryInformationContainer.append(countryPopulation)
+
+  const countryPopulationInfo = document.createElement('span')
+  countryPopulation.append(countryPopulationInfo)
+  countryPopulationInfo.textContent = 'teste'
 
   
 }
@@ -95,7 +120,6 @@ EVENTS
 
 // Dark and light mode button
 swapThemeActivation();
-
 themeSwitchBtn.addEventListener('click', () => {
   swapThemeActivation(true);
 });
