@@ -19,6 +19,8 @@ select {
   --bg-secondary: hsl(209, 23%, 22%);
   --text-main: hsl(0, 0%, 100%);
   --box-shadow-color: rgba(0, 0, 0, 0.15);
+  --bg-spinner-1: #826868;
+  --bg-spinner-2: #acc278;
 
   --fm-main: 'Nunito Sans';
 
@@ -26,6 +28,7 @@ select {
   --max-width: 1440px;
   --max-width-padding: 5rem;
   --min-width-padding: 1.25rem;
+  
 }
 
 body {
@@ -164,6 +167,7 @@ main {
   grid-template-columns: repeat(auto-fit, minmax(265px, 1fr));
   width: 100%;
   justify-items: center;
+  margin-bottom: 3rem;
 }
 
 .countries__box {
@@ -214,6 +218,65 @@ main {
   opacity: .5;
 }
 
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+}
+
+.loader::after {
+  content: '';
+  width: 75px;
+  height: 75px;
+  border: 15px dashed var(--bg-spinner-1);
+  opacity: .5;
+  border-radius: 50%;
+  animation: loading 3000ms infinite ease;
+}
+
+@keyframes loading {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loader-mid {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loader-mid::after {
+  content: '';
+  width: 35px;
+  height: 35px;
+  border: 15px dashed var(--bg-spinner-2);
+  border-radius: 50%;
+  animation: loading-mid 4000ms infinite linear;
+}
+
+@keyframes loading-mid {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
 
 @media screen and (width <= 47.875em) {
   header {

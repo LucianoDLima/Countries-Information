@@ -32,7 +32,7 @@ function swapThemeName() {
 function swapThemeImage() {
   const themeSwitchImg = document.querySelector('#theme-switch-img');
   const themeSwitchSearch = document.querySelector('#search-icon');
-  const themeSwitchArrow = document.querySelector('#arrow-icon')
+  const themeSwitchArrow = document.querySelector('#arrow-icon');
 
   const darkMode = 'images/dark-mode.svg';
   const lightMode = 'images/light-mode.svg';
@@ -44,11 +44,11 @@ function swapThemeImage() {
   if (isLightMode) {
     themeSwitchImg.setAttribute('src', darkMode);
     themeSwitchSearch.setAttribute('src', darkModeSearch);
-    themeSwitchArrow.setAttribute('src', darkModeArrow)
+    themeSwitchArrow.setAttribute('src', darkModeArrow);
   } else {
     themeSwitchImg.setAttribute('src', lightMode);
     themeSwitchSearch.setAttribute('src', lightModeSearch);
-    themeSwitchArrow.setAttribute('src', lightModeArrow)
+    themeSwitchArrow.setAttribute('src', lightModeArrow);
   }
 }
 
@@ -70,36 +70,63 @@ function swapThemeActivation(all) {
 }
 
 // ====== \\
-async function teste(country) {
-  // const response = await fetch(`https://restcountries.com/v3.1/name/${country}`)
-  // const data = await response.json()
-  //   console.log(data);
-  // return response
-}
-async function addCountry(country) {
-  const response = await fetch(`https://restcountries.com/v3.1/name/${country}`)
-  const data = await response.json()
-  console.log(data);
-  countryContainer.insertAdjacentHTML('beforeend', `
+function countryHTML(data, index) {
+  countryContainer.insertAdjacentHTML(
+    'beforeend',
+    `
         <div class="countries__box">
           <div class="countries__flag">
-            <img src="${data[0].flags.svg}" alt="${data[0].flags.alt}">
+            <img src="${data[index].flags.svg}" alt="${data[index].flags.alt}">
           </div>
           
-          <h2 class="countries__name">${data[0].name.common}</h2>
+          <h2 class="countries__name">${data[index].name.common}</h2>
 
           <div class="countries__information">
-            <p>Population: <span id="population">${data[0].population}</span></p>
-            <p>Region: <span id="region">${data[0].region}</span></p>
-            <p>Capital: <span id="capital">${data[0].capital}</span></p> 
+            <p>Population: <span id="population">${data[index].population}</span></p>
+            <p>Region: <span id="region">${data[index].region}</span></p>
+            <p>Capital: <span id="capital">${data[index].capital}</span></p> 
           </div>
-        </div>`)
-
+        </div>`
+  );
 }
-addCountry('Brazil')
-addCountry('Togo')
-addCountry('Japan')
-addCountry('Australia')
+
+async function addCountry(country) {
+  const response = await fetch(`https://restcountries.com/v3.1/name/${country}`);
+  const data = await response.json();
+
+  countryHTML(data, 0);
+}
+
+async function allCountries(i) {
+  const response = await fetch(`https://restcountries.com/v3.1/all`);
+  const data = await response.json();
+
+  countryHTML(data, i);
+}
+
+function addAllCountries(start, countriesToLoad) {
+  // Responsible for adding all the countries once you load the page
+  // 'Start' is from which index we start counting
+  // 'CountriesToLoad' is how many countries I should load starting from the index in 'start'
+  countriesToLoad += start
+  for (let i = start; i < countriesToLoad; i++) {
+    allCountries(i);
+  }
+}
+
+addAllCountries(0, 16);
+
+window.addEventListener('scroll', () => {
+  // Loads more information as you scrolldown
+  const scrollPosition = window.pageYOffset;
+  const maxScroll = document.documentElement.scrollHeight - document.documentElement.clientHeight - 1;
+
+  if (scrollPosition >= maxScroll) {
+    addAllCountries(countryContainer.children.length, 16);
+  }
+});
+
+
 
 /* //
 EVENTS
@@ -113,6 +140,6 @@ themeSwitchBtn.addEventListener('click', () => {
 
 // Drop down filter options, makes the 'filter option' dissappear after an option is selected
 select.addEventListener('change', () => {
-  const filterName = document.querySelector('#filter-options-name')
-  filterName.textContent = ''
+  const filterName = document.querySelector('#filter-options-name');
+  filterName.textContent = '';
 });
