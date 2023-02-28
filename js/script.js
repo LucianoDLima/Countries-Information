@@ -4,6 +4,7 @@ ELEMENTS
 const themeSwitchBtn = document.querySelector('#theme-switch');
 const select = document.querySelector('#filter-options');
 const countryContainer = document.querySelector('.countries');
+const countryBox = document.querySelectorAll('.countries__box')
 
 /* //
 FUNCTIONS
@@ -70,13 +71,15 @@ function swapThemeActivation(all) {
 }
 
 // ====== \\
+let isFirstLoad = true;
+
 function countryHTML(data, index) {
   countryContainer.insertAdjacentHTML(
     'beforeend',
     `
         <div class="countries__box">
           <div class="countries__flag">
-            <img src="${data[index].flags.svg}" alt="${data[index].flags.alt}">
+            <img src="${data[index].flags.svg}" alt="${data[index].flags?.alt}">
           </div>
           
           <h2 class="countries__name">${data[index].name.common}</h2>
@@ -91,7 +94,9 @@ function countryHTML(data, index) {
 }
 
 async function addCountry(country) {
-  const response = await fetch(`https://restcountries.com/v3.1/name/${country}`);
+  const response = await fetch(
+    `https://restcountries.com/v3.1/name/${country}`
+  );
   const data = await response.json();
 
   countryHTML(data, 0);
@@ -104,29 +109,44 @@ async function allCountries(i) {
   countryHTML(data, i);
 }
 
+async function countryByRegion(region) {
+  const response = await fetch(
+    `https://restcountries.com/v3.1/region/${region}`
+  );
+  const data = await response.json();
+
+  isFirstLoad = false
+  for(let i = 0; i < data.length; i++) {
+    countryHTML(data, i)
+  }
+}
+
+// countryByRegion('oceania')
+
 function addAllCountries(start, countriesToLoad) {
   // Responsible for adding all the countries once you load the page
   // 'Start' is from which index we start counting
   // 'CountriesToLoad' is how many countries I should load starting from the index in 'start'
-  countriesToLoad += start
+  countriesToLoad += start;
   for (let i = start; i < countriesToLoad; i++) {
     allCountries(i);
   }
 }
 
-addAllCountries(0, 16);
+// Loads some countries as you scroll down if the page is loaded for the first time or reloaded
+function loaOnScrollDown() {
+  if (isFirstLoad) {
+    const scrollPosition = window.pageYOffset;
+    const maxScroll =
+      document.documentElement.scrollHeight -
+      document.documentElement.clientHeight -
+      1;
 
-window.addEventListener('scroll', () => {
-  // Loads more information as you scrolldown
-  const scrollPosition = window.pageYOffset;
-  const maxScroll = document.documentElement.scrollHeight - document.documentElement.clientHeight - 1;
-
-  if (scrollPosition >= maxScroll) {
-    addAllCountries(countryContainer.children.length, 16);
+    if (scrollPosition >= maxScroll && isFirstLoad) {
+      addAllCountries(countryContainer.children.length, 16);
+    } 
   }
-});
-
-
+}
 
 /* //
 EVENTS
@@ -139,7 +159,31 @@ themeSwitchBtn.addEventListener('click', () => {
 });
 
 // Drop down filter options, makes the 'filter option' dissappear after an option is selected
-select.addEventListener('change', () => {
+select.addEventListener('change', function() {
   const filterName = document.querySelector('#filter-options-name');
   filterName.textContent = '';
+  
+  // function
+  const selectedRegion = this.value.toLowerCase();
+  if(selectedRegion !== 'all') {
+    isFirstLoad = false
+    countryByRegion(selectedRegion)
+  } else {
+    isFirstLoad = true
+    addAllCountries(0, 16)
+  }
 });
+
+window.addEventListener('scroll', () => {
+  // Loads more information as you scrolldown
+  loaOnScrollDown()
+});
+
+// Todo
+/* 
+- Line 167, make a function for it
+- Make a spiiner load, not the priority yet tho
+- Make turn allCountries function into one that can be used for the regions as well, since i have 2 function that do the same thing
+- Try implenet the load on scroll on the filters too
+- Implenet the Search for Country box (low priority)
+*/
